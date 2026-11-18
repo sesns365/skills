@@ -37,13 +37,12 @@
   .hl{white-space:nowrap;background:linear-gradient(transparent 52%,var(--hl-yellow) 52%,var(--hl-yellow) 92%,transparent 92%);padding:0 .1em}
 
   /* 頁首：書頁色帶 */
-  header{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:end}
+  header{display:grid;grid-template-columns:1fr;gap:20px;align-items:end}
   .brand{display:flex;align-items:center;gap:8px;font-family:var(--font-hand);font-weight:700;color:var(--green);font-size:17px}
   .brand img{width:40px;height:40px;background:#fff;border-radius:50%;padding:2px}
   h1{font-family:var(--font-hand);font-size:clamp(34px,5.6vw,54px);line-height:1.2;margin:6px 0 10px;font-weight:700;text-wrap:balance}
   .lead{margin:0;color:var(--muted);max-width:34em;font-size:17px}
-  .pages{width:220px;height:auto}
-  @media (max-width:720px){header{grid-template-columns:1fr}.pages{display:none}}
+  @media (max-width:720px){header{grid-template-columns:1fr}}
 
   /* 啟用三步驟：任務卡 */
   .mission{background:var(--surface);border:2px solid var(--line);border-radius:18px;box-shadow:var(--shadow);position:relative;padding:26px 24px 20px}
@@ -113,16 +112,6 @@
       <h1>特教老師的 <span class="hl">AI 小幫手</span> 工具箱</h1>
       <p class="lead">從資源班教學現場長出來的 skills。複製一行指令貼給你的 AI，就能開始做學習單、互動教材與報讀版。</p>
     </div>
-    <!-- 書頁色帶：取自特工365 書本意象 -->
-    <svg class="pages" viewBox="0 0 220 120" aria-hidden="true">
-      <path d="M110 92 C80 70 40 64 8 72" fill="none" stroke="#f39801" stroke-width="10" stroke-linecap="round"/>
-      <path d="M110 92 C140 70 180 64 212 72" fill="none" stroke="#f39801" stroke-width="10" stroke-linecap="round"/>
-      <path d="M110 104 C80 82 40 78 8 86" fill="none" stroke="#6ea548" stroke-width="10" stroke-linecap="round"/>
-      <path d="M110 104 C140 82 180 78 212 86" fill="none" stroke="#6ea548" stroke-width="10" stroke-linecap="round"/>
-      <path d="M110 116 C80 96 40 92 8 100" fill="none" stroke="#5c8d3c" stroke-width="10" stroke-linecap="round"/>
-      <path d="M110 116 C140 96 180 92 212 100" fill="none" stroke="#5c8d3c" stroke-width="10" stroke-linecap="round"/>
-      <path d="M110 70 c-6-8-18-4-12 6l12 10 12-10c6-10-6-14-12-6z" fill="#f39801"/>
-    </svg>
   </header>
 
   <section class="mission" aria-label="啟用三步驟">
