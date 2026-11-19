@@ -96,6 +96,24 @@
   .gh:hover{text-decoration:underline}
   @media (max-width:480px){.install{flex-direction:column}.copy{justify-content:center}.say{margin-left:0;margin-top:40px}.say::before{left:22px;top:-10px;transform:rotate(135deg)}.say-who{left:6px;top:-44px}}
 
+  /* 功能說明圖片 */
+  .shot{position:relative;display:block;width:100%;padding:0;margin:0;border:2px solid var(--line);border-radius:12px;overflow:hidden;cursor:zoom-in;
+    background:#fff;aspect-ratio:16/10}
+  .shot img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;transition:transform .25s}
+  .shot:hover img{transform:scale(1.03)}
+  .shot:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+  .shot-cap{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:22px 12px 8px;
+    background:linear-gradient(transparent,rgba(20,20,18,.78));color:#fff;font-size:13px;text-align:left;line-height:1.4}
+  .shot-n{flex:none;background:var(--orange);border-radius:999px;padding:2px 10px;font-weight:700;font-size:12px}
+  .lb{position:fixed;inset:0;z-index:30;background:rgba(15,15,12,.88);display:flex;flex-direction:column;align-items:center;padding:16px;gap:10px}
+  .lb-bar{width:100%;max-width:1100px;display:flex;justify-content:space-between;align-items:center;gap:10px;color:#fff}
+  .lb-title{font-family:var(--font-hand);font-size:20px;font-weight:700}
+  .lb-btn{font:inherit;font-weight:700;color:var(--ink);background:#fff;border:2px solid var(--line);border-radius:10px;min-width:44px;min-height:44px;cursor:pointer;padding:0 12px}
+  .lb-btn:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+  .lb-stage{flex:1;min-height:0;width:100%;max-width:1100px;overflow:auto;border-radius:12px;background:#fff;-webkit-overflow-scrolling:touch}
+  .lb-stage img{display:block;width:100%;height:auto}
+  .lb-foot{width:100%;max-width:1100px;display:flex;justify-content:space-between;align-items:center;gap:10px;color:#fff;font-size:15px}
+  .lb-cap{flex:1;text-align:center}
   footer{text-align:center;font-size:13px;color:var(--muted)}
   footer a{color:var(--green)}
   .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 18px;border-radius:10px;
@@ -130,12 +148,17 @@
 
   <footer>由 <a href="https://github.com/sesns365" target="_blank" rel="noopener">特工365</a> 整理。每個 skill 的完整說明與下載都在各自的 GitHub 頁面。</footer>
 </main>
+<div id="lb" class="lb" role="dialog" aria-modal="true" aria-labelledby="lbTitle" hidden>
+  <div class="lb-bar"><span id="lbTitle" class="lb-title"></span><button id="lbClose" class="lb-btn" type="button" aria-label="關閉">✕ 關閉</button></div>
+  <div id="lbStage" class="lb-stage"><img id="lbImg" alt=""></div>
+  <div class="lb-foot"><button id="lbPrev" class="lb-btn" type="button" aria-label="上一張">‹</button><span id="lbCap" class="lb-cap"></span><button id="lbNext" class="lb-btn" type="button" aria-label="下一張">›</button></div>
+</div>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
 <script src="skills.js"></script>
 <script>
 (function(){
-  var skills = window.SKILLS || [];
+  var skills = (window.SKILLS || []).filter(function(s){return !s.hidden});
   var cat = "全部";
   var $ = function(id){return document.getElementById(id)};
   var TAB = {"全部":"var(--hl-yellow)","國語文":"var(--hl-blue)","數學":"var(--hl-green)","評量與報讀":"var(--hl-pink)","教材製作":"var(--orange-soft)"};
@@ -169,6 +192,9 @@
       return '<article class="card" style="--c:'+esc(s.color||"#6ea548")+';--tab:'+(TAB[s.cat]||"var(--hl-yellow)")+'">'+
         '<div class="card-top"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(ICONS[s.icon]||ICONS.book)+'</svg></span>'+
         '<div><span class="label">'+esc(s.cat||"")+'</span><h2>'+esc(s.name)+'</h2></div></div>'+
+        (s.shots&&s.shots.length?'<button class="shot" type="button" data-slug="'+esc(s.slug)+'" aria-label="看'+esc(s.name)+'的功能說明圖">'+
+          '<img src="'+esc(s.shots[0].src)+'" alt="'+esc(s.shots[0].cap||"")+'" loading="lazy">'+
+          '<span class="shot-cap"><span>'+esc(s.shots[0].cap||"")+'</span><span class="shot-n">看圖 '+s.shots.length+' 張</span></span></button>':'')+
         '<p class="summary">'+esc(s.summary)+'</p>'+
         (s.say?'<div class="say"><span class="say-who" aria-hidden="true">你</span><small>裝好後這樣說</small>「'+esc(s.say)+'」</div>':'')+
         '<div class="install"><div class="cmd">'+esc(cmd(s))+'</div>'+
@@ -179,6 +205,7 @@
   function fallback(text){var ta=document.createElement("textarea");ta.value=text;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();
     var ok=false;try{ok=document.execCommand("copy")}catch(e){}document.body.removeChild(ta);return ok}
   $("board").addEventListener("click",function(e){
+    var sh=e.target.closest(".shot");if(sh){openLb(sh.dataset.slug,sh);return}
     var b=e.target.closest(".copy");if(!b)return;
     var s=skills.filter(function(x){return x.slug===b.dataset.slug})[0];var text=cmd(s);
     var ok=function(){b.classList.add("done");b.querySelector("span").textContent="已複製";toast("已複製，貼到你的 AI 對話框");
@@ -186,6 +213,18 @@
     var no=function(){if(fallback(text))ok();else toast("請選取指令後按 Ctrl+C 複製")};
     try{navigator.clipboard.writeText(text).then(ok,no)}catch(err){no()}
   });
+  var lb={s:null,i:0,from:null};
+  function showLb(){var x=lb.s.shots[lb.i];$("lbImg").src=x.src;$("lbImg").alt=x.cap||"";$("lbStage").scrollTop=0;
+    $("lbCap").textContent=(lb.s.shots.length>1?(lb.i+1)+" / "+lb.s.shots.length+"　":"")+(x.cap||"");
+    $("lbPrev").hidden=$("lbNext").hidden=lb.s.shots.length<2}
+  function openLb(slug,from){lb.s=skills.filter(function(x){return x.slug===slug})[0];lb.i=0;lb.from=from;
+    $("lbTitle").textContent=lb.s.name;showLb();$("lb").hidden=false;document.body.style.overflow="hidden";$("lbClose").focus()}
+  function closeLb(){$("lb").hidden=true;document.body.style.overflow="";if(lb.from)lb.from.focus()}
+  function step(d){var n=lb.s.shots.length;lb.i=(lb.i+d+n)%n;showLb()}
+  $("lbClose").onclick=closeLb;$("lbPrev").onclick=function(){step(-1)};$("lbNext").onclick=function(){step(1)};
+  $("lb").addEventListener("click",function(e){if(e.target===this)closeLb()});
+  document.addEventListener("keydown",function(e){if($("lb").hidden)return;
+    if(e.key==="Escape")closeLb();else if(e.key==="ArrowLeft")step(-1);else if(e.key==="ArrowRight")step(1)});
   render();
 })();
 </script>
