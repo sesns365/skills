@@ -53,7 +53,7 @@ window.SKILLS = [
       { src: "shots/reading-strategy-worksheet-3.jpg", cap: "教師版：附參考答案與教學提示" }
     ],
     url: "https://github.com/sesns365/reading-strategy-worksheet",
-    summary: "貼上課文、說明學生現況，就依序分析並推薦閱讀策略（KWL、SQ3R、PIRLS、4F、六何法、思考地圖），做出全班通用（UDL）、可報讀與線上作答的學習單，附 PDF、Word 與教師版。Claude、ChatGPT、Gemini 都能用。",
+    summary: "貼上課文、說明學生現況，就依序分析並推薦閱讀策略（KWL、SQ3R、PIRLS、4F、六何法、思考地圖，以及特教實證的故事地圖、交互教學、找大意），做出全班通用（UDL）、可報讀與線上作答的學習單，附 PDF、Word 與教師版。Claude、ChatGPT、Gemini 都能用。",
     cat: "國語文",
     icon: "book",
     color: "#3a7fc1",
