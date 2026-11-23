@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>特教老師的 AI 特工裝備箱</title>
+<title>特教老師的 AI skills 裝備箱</title>
 <meta name="description" content="特教老師做給教學現場的 AI 小幫手，複製一行指令貼給 AI 就能用。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Sans+TC:wght@400;500;700&display=swap">
@@ -39,7 +39,9 @@
   /* 頁首：書頁色帶 */
   header{display:grid;grid-template-columns:1fr;gap:20px;align-items:end}
   .brand{display:flex;align-items:center;gap:8px;font-family:var(--font-hand);font-weight:700;color:var(--green);font-size:17px}
-  .brand img{width:40px;height:40px;background:#fff;border-radius:50%;padding:2px}
+  .brand{gap:16px}
+  .brand img{width:clamp(56px,8vw,84px);height:clamp(56px,8vw,84px);flex:none;background:#fff;border-radius:50%;padding:3px}
+  .brand h1{margin:0}
   h1{font-family:var(--font-hand);font-size:clamp(34px,5.6vw,54px);line-height:1.2;margin:6px 0 10px;font-weight:700;text-wrap:balance}
   .lead{margin:0;color:var(--muted);max-width:34em;font-size:17px}
   @media (max-width:720px){header{grid-template-columns:1fr}}
@@ -126,8 +128,7 @@
 <main class="wrap">
   <header>
     <div>
-      <div class="brand"><img src="logo.png" alt="特工365" title="特工365"></div>
-      <h1>特教老師的 AI <span class="hl">特工裝備箱</span></h1>
+      <div class="brand"><img src="logo.png" alt="特工365" title="特工365"><h1>特教老師的 AI <span class="hl">skills 裝備箱</span></h1></div>
     </div>
   </header>
 
