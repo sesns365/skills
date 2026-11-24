@@ -15,3 +15,7 @@
 ## 暫不開放
 
 在 `skills.js` 該筆加 `hidden: true`，首頁就不顯示（GitHub repo 本身仍是公開的）。刪掉這行即重新開放。
+
+## 支援平台標註
+
+在 `skills.js` 該筆加 `ai: ["Claude", "ChatGPT", "Gemini"]`（只列支援的），卡片會顯示三個平台，沒列到的會打叉顯示為不支援。`aiNote` 可補一句限制說明。

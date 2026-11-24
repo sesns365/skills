@@ -2,12 +2,15 @@
 // cat＝分類（篩選用）；icon＝圖示（book、pen、hanzi、zhuyin、calc、speaker、touch、image、map）；color＝圖示底色；say＝卡片上「裝好後這樣說」的範例句；note＝限制說明（可省略）。
 // 新增 skill：複製下面一整段 { ... }，貼在最後一筆後面（記得前一筆結尾要有逗號），再改內容。
 // shots＝功能說明圖片（放在 shots/ 資料夾，第一張當卡片封面，點圖可看全部）；cap＝圖片說明。沒有圖可省略。
+// ai＝支援平台（Claude、ChatGPT、Gemini 三選），沒列到的會顯示為不支援；aiNote＝平台限制補充（可省略）。
 // hidden: true ＝暫不開放：首頁不顯示，但 GitHub repo 仍是公開的。要重新開放就刪掉這行或改成 false。
 // 只放「公開」的 skill。私人或僅本機使用的 skill 不要放進來。
 window.SKILLS = [
   {
     name: "語詞圖片生成",
     slug: "word-image-generator",
+    ai: ["Claude"],
+    aiNote: "Claude 沒有內建生圖，會給每個語詞的中英文提示詞，接了生圖工具才直接出圖。",
     url: "https://github.com/sesns365/word-image-generator",
     summary: "輸入語詞，每個語詞各產生一張 1:1、純白背景的教材用圖片。貼上課文或社會故事，還能讓整組圖卡的人物與畫風一致。",
     cat: "教材製作",
@@ -20,11 +23,12 @@ window.SKILLS = [
   {
     name: "數學概念動態表徵介面小幫手",
     slug: "math-concept-visualizer",
+    ai: ["Claude", "ChatGPT", "Gemini"],
     shots: [
       { src: "shots/math-concept-visualizer-1.jpg", cap: "CRA 操作區：學生拖曳積木、位值板會跟著變" }
     ],
     url: "https://github.com/sesns365/math-concept-visualizer",
-    summary: "輸入國小數學概念，依 CRA 歷程做出可操作的互動教材，含教學探索、學生練習與學習單下載，並有自動報讀與學生模式。Claude、ChatGPT、Gemini 都能用。",
+    summary: "輸入國小數學概念，依 CRA 歷程做出可操作的互動教材，含教學探索、學生練習與學習單下載，並有自動報讀與學生模式。",
     cat: "數學",
     icon: "calc",
     color: "#5c8d3c",
@@ -35,8 +39,10 @@ window.SKILLS = [
   {
     name: "報讀考卷產生器",
     slug: "exam-read-aloud",
+    ai: ["Claude"],
+    aiNote: "僅限 Claude Code（Windows 10／11），網頁版與手機 App 不能用。",
     url: "https://github.com/sesns365/exam-read-aloud",
-    summary: "丟入考卷（PDF、Word、圖片），自動做成版面完全不變、點題號或選項就能朗讀的報讀版網頁。支援直書國語與數學考卷，不會唸出隱藏答案。需 Claude Code（Windows）。",
+    summary: "丟入考卷（PDF、Word、圖片），自動做成版面完全不變、點題號或選項就能朗讀的報讀版網頁。支援直書國語與數學考卷，不會唸出隱藏答案。",
     cat: "評量與報讀",
     icon: "speaker",
     color: "#d6457a",
@@ -47,13 +53,15 @@ window.SKILLS = [
   {
     name: "閱讀策略學習單小幫手",
     slug: "reading-strategy-worksheet",
+    ai: ["Claude", "ChatGPT", "Gemini"],
+    aiNote: "Claude Code 可直接匯出 PDF 與 Word。",
     shots: [
       { src: "shots/reading-strategy-worksheet-1.jpg", cap: "KWL 策略學習單（全班通用版面）" },
       { src: "shots/reading-strategy-worksheet-2.jpg", cap: "思考地圖策略學習單" },
       { src: "shots/reading-strategy-worksheet-3.jpg", cap: "教師版：附參考答案與教學提示" }
     ],
     url: "https://github.com/sesns365/reading-strategy-worksheet",
-    summary: "貼上課文、說明學生現況，就依序分析並推薦閱讀策略（KWL、SQ3R、PIRLS、4F、六何法、思考地圖，以及特教實證的故事地圖、交互教學、找大意），做出全班通用（UDL）、可報讀與線上作答的學習單，附 PDF、Word 與教師版。Claude、ChatGPT、Gemini 都能用。",
+    summary: "貼上課文、說明學生現況，就依序分析並推薦閱讀策略（KWL、SQ3R、PIRLS、4F、六何法、思考地圖，以及特教實證的故事地圖、交互教學、找大意），做出全班通用（UDL）、可報讀與線上作答的學習單，附 PDF、Word 與教師版。",
     cat: "國語文",
     icon: "book",
     color: "#3a7fc1",
@@ -64,13 +72,15 @@ window.SKILLS = [
   {
     name: "PDF 互動學習單小幫手",
     slug: "pdf-interactive-worksheet",
+    ai: ["Claude", "ChatGPT", "Gemini"],
+    aiNote: "ChatGPT、Gemini 產出答案資料後，到線上製作頁產生互動網頁。",
     shots: [
       { src: "shots/pdf-interactive-worksheet-1.jpg", cap: "學生直接在原版面作答、用畫筆書寫" },
       { src: "shots/pdf-interactive-worksheet-2.jpg", cap: "老師講解模式：顯示答案與畫記" },
       { src: "shots/pdf-interactive-worksheet-3.jpg", cap: "製作頁：上傳 PDF 或 Word 就能轉" }
     ],
     url: "https://github.com/sesns365/pdf-interactive-worksheet",
-    summary: "把 PDF 或 Word 學習單、考卷保留原版面，變成學生能直接作答、對答案、語音報讀、用畫筆書寫的互動網頁，有作答紀錄與老師講解模式，下載後離線也能用。Claude、ChatGPT、Gemini 都能用。",
+    summary: "把 PDF 或 Word 學習單、考卷保留原版面，變成學生能直接作答、對答案、語音報讀、用畫筆書寫的互動網頁，有作答紀錄與老師講解模式，下載後離線也能用。",
     cat: "評量與報讀",
     icon: "touch",
     color: "#d6457a",
@@ -81,13 +91,15 @@ window.SKILLS = [
   {
     name: "六何法分層寫作小幫手",
     slug: "six-w-writing",
+    ai: ["Claude", "ChatGPT", "Gemini"],
+    aiNote: "Claude Code 可直接產出互動網頁、PDF 與 Word。",
     shots: [
       { src: "shots/six-w-writing-1.jpg", cap: "互動網頁：第一層「三何」一步一步填" },
       { src: "shots/six-w-writing-2.jpg", cap: "依學生勾選學習支持（句型、詞庫等）" },
       { src: "shots/six-w-writing-3.jpg", cap: "可列印的學習單" }
     ],
     url: "https://github.com/sesns365/six-w-writing",
-    summary: "給作文題目或素材，依六何法七個層次（三何起步到完整寫作）一層一層引導，可選層、可依學生調整圈選、句型、詞庫、先說再寫等支持，產出互動網頁、學習單 PDF、Word 與教師版。Claude、ChatGPT、Gemini 都能用。",
+    summary: "給作文題目或素材，依六何法七個層次（三何起步到完整寫作）一層一層引導，可選層、可依學生調整圈選、句型、詞庫、先說再寫等支持，產出互動網頁、學習單 PDF、Word 與教師版。",
     cat: "國語文",
     icon: "pen",
     color: "#3a7fc1",
@@ -98,6 +110,8 @@ window.SKILLS = [
   {
     name: "內嵌注音字體小幫手",
     slug: "zhuyin-font-embed",
+    ai: ["Claude", "ChatGPT", "Gemini"],
+    aiNote: "內嵌字型、破音字校對頁、Word 需 Claude Code；ChatGPT、Gemini 為線上字型簡化版。",
     shots: [
       { src: "shots/zhuyin-font-embed-1.jpg", cap: "字旁直接帶注音，沒裝字型也看得到" },
       { src: "shots/zhuyin-font-embed-2.jpg", cap: "破音字校對頁：點一下就能改讀音" }
@@ -114,6 +128,7 @@ window.SKILLS = [
   {
     name: "圖解識字",
     slug: "hanzi-visual-teaching",
+    ai: ["Claude", "ChatGPT", "Gemini"],
     shots: [
       { src: "shots/hanzi-visual-teaching-1.jpg", cap: "完成圖：部件拆解＋口訣＋四格語詞" }
     ],
@@ -129,6 +144,7 @@ window.SKILLS = [
   {
     name: "成語圖文探險單",
     slug: "idiom-quest-worksheet",
+    ai: ["Claude", "ChatGPT", "Gemini"],
     shots: [
       { src: "shots/idiom-quest-worksheet-1.jpg", cap: "第一頁：看圖連連看兩關" },
       { src: "shots/idiom-quest-worksheet-2.jpg", cap: "第二頁：生活句子選選看與造句" }
