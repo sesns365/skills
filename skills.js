@@ -51,25 +51,6 @@ window.SKILLS = [
     updated: "2026-11-10"
   },
   {
-    name: "閱讀策略學習單小幫手",
-    slug: "reading-strategy-worksheet",
-    ai: ["Claude", "ChatGPT", "Gemini"],
-    aiNote: "Claude Code 可直接匯出 PDF 與 Word。",
-    shots: [
-      { src: "shots/reading-strategy-worksheet-1.jpg", cap: "KWL 策略學習單（全班通用版面）" },
-      { src: "shots/reading-strategy-worksheet-2.jpg", cap: "思考地圖策略學習單" },
-      { src: "shots/reading-strategy-worksheet-3.jpg", cap: "教師版：附參考答案與教學提示" }
-    ],
-    url: "https://github.com/sesns365/reading-strategy-worksheet",
-    summary: "貼上課文、說明學生現況，就依序分析並推薦閱讀策略（KWL、SQ3R、PIRLS、4F、六何法、思考地圖，以及特教實證的故事地圖、交互教學、找大意），做出全班通用（UDL）、可報讀與線上作答的學習單，附 PDF、Word 與教師版。",
-    cat: "國語文",
-    icon: "book",
-    color: "#3a7fc1",
-    say: "這是第三課課文，學生識字量較弱，幫我做閱讀策略學習單",
-    tags: ["閱讀理解", "學習單", "UDL", "特教"],
-    updated: "2026-11-10"
-  },
-  {
     name: "PDF 互動學習單小幫手",
     slug: "pdf-interactive-worksheet",
     ai: ["Claude", "ChatGPT", "Gemini"],
@@ -87,25 +68,6 @@ window.SKILLS = [
     say: "把這份 PDF 學習單做成可以作答的互動網頁",
     tags: ["學習單", "互動教材", "報讀", "UDL", "特教"],
     updated: "2026-11-12"
-  },
-  {
-    name: "六何法分層寫作小幫手",
-    slug: "six-w-writing",
-    ai: ["Claude", "ChatGPT", "Gemini"],
-    aiNote: "Claude Code 可直接產出互動網頁、PDF 與 Word。",
-    shots: [
-      { src: "shots/six-w-writing-1.jpg", cap: "互動網頁：第一層「三何」一步一步填" },
-      { src: "shots/six-w-writing-2.jpg", cap: "依學生勾選學習支持（句型、詞庫等）" },
-      { src: "shots/six-w-writing-3.jpg", cap: "可列印的學習單" }
-    ],
-    url: "https://github.com/sesns365/six-w-writing",
-    summary: "給作文題目或素材，依六何法七個層次（三何起步到完整寫作）一層一層引導，可選層、可依學生調整圈選、句型、詞庫、先說再寫等支持，產出互動網頁、學習單 PDF、Word 與教師版。",
-    cat: "國語文",
-    icon: "pen",
-    color: "#3a7fc1",
-    say: "題目「我的好朋友」，用六何法第一層做寫作學習單",
-    tags: ["寫作", "學習單", "UDL", "特教"],
-    updated: "2026-11-16"
   },
   {
     name: "內嵌注音字體小幫手",
