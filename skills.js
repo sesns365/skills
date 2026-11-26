@@ -119,5 +119,24 @@ window.SKILLS = [
     say: "成語圖文探險單：畫蛇添足、守株待兔、亡羊補牢、井底之蛙、對牛彈琴、自相矛盾",
     tags: ["成語", "學習單", "UDL", "特教"],
     updated: "2026-11-17"
+  },
+  {
+    name: "數學互動教室",
+    slug: "math-interactive-classroom",
+    ai: ["Claude", "ChatGPT", "Gemini"],
+    aiNote: "注音、預錄曉臻語音、自動檢查題目需 Claude Code；ChatGPT、Gemini 版連線上引擎，開啟時要能上網。",
+    shots: [
+      { src: "shots/math-interactive-classroom-1.jpg", cap: "看一看：圖跟著老師說的步驟一起變" },
+      { src: "shots/math-interactive-classroom-2.jpg", cap: "練一練：動手塗色，答錯依常見迷思給回饋" },
+      { src: "shots/math-interactive-classroom-3.jpg", cap: "學習單工坊：A4 排版，可列印 PDF 或下載 Word" }
+    ],
+    url: "https://github.com/sesns365/math-interactive-classroom",
+    summary: "輸入一個國小數學單元，就產生闖關式互動教室：暖身加 4～6 站，每站看一看、練一練、過關，題目隨機出、答錯依迷思回饋。另有學習單工坊（PDF、Word）和教師後台看學習紀錄，可加注音與語音。",
+    cat: "數學",
+    icon: "calc",
+    color: "#5c8d3c",
+    say: "數學互動教室：四年級 假分數與帶分數",
+    tags: ["數學", "互動網頁", "學習單", "特教"],
+    updated: "2026-11-26"
   }
 ];
