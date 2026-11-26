@@ -4,7 +4,8 @@
 // shots＝功能說明圖片（放在 shots/ 資料夾，第一張當卡片封面，點圖可看全部）；cap＝圖片說明。沒有圖可省略。
 // ai＝支援平台（Claude、ChatGPT、Gemini 三選），沒列到的會顯示為不支援；aiNote＝平台限制補充（可省略）。
 // hidden: true ＝暫不開放：首頁不顯示，但 GitHub repo 仍是公開的。要重新開放就刪掉這行或改成 false。
-// 只放「公開」的 skill。私人或僅本機使用的 skill 不要放進來。
+// private: true ＝私人 skill：放在「私人 skill」區，只展示說明與截圖，不顯示安裝指令與下載連結（url 可省略）。
+// 帳號自用的 skill（如 token 提醒、logo）不要放進來。
 window.SKILLS = [
   {
     name: "語詞圖片生成",
@@ -137,6 +138,111 @@ window.SKILLS = [
     color: "#5c8d3c",
     say: "數學互動教室：四年級 假分數與帶分數",
     tags: ["數學", "互動網頁", "學習單", "特教"],
+    updated: "2026-11-26"
+  },
+  // ===== 以下為私人 skill（private: true，只展示說明，不提供下載） =====
+  {
+    name: "閱讀策略學習單小幫手",
+    slug: "reading-strategy-worksheet",
+    private: true,
+    ai: ["Claude", "ChatGPT", "Gemini"],
+    aiNote: "Claude Code 可直接匯出 PDF 與 Word。",
+    shots: [
+      { src: "shots/reading-strategy-worksheet-1.jpg", cap: "KWL 策略學習單（全班通用版面）" },
+      { src: "shots/reading-strategy-worksheet-2.jpg", cap: "思考地圖策略學習單" },
+      { src: "shots/reading-strategy-worksheet-3.jpg", cap: "教師版：附參考答案與教學提示" }
+    ],
+    summary: "貼上課文、說明學生現況，就依序分析並推薦閱讀策略（KWL、SQ3R、PIRLS、4F、六何法、思考地圖，以及特教實證的故事地圖、交互教學、找大意），做出全班通用（UDL）、可報讀與線上作答的學習單，附 PDF、Word 與教師版。",
+    cat: "國語文",
+    icon: "book",
+    color: "#3a7fc1",
+    say: "這是第三課課文，學生識字量較弱，幫我做閱讀策略學習單",
+    updated: "2026-11-16"
+  },
+  {
+    name: "六何法分層寫作小幫手",
+    slug: "six-w-writing",
+    private: true,
+    ai: ["Claude", "ChatGPT", "Gemini"],
+    aiNote: "Claude Code 可直接產出互動網頁、PDF 與 Word。",
+    shots: [
+      { src: "shots/six-w-writing-1.jpg", cap: "互動網頁：第一層「三何」一步一步填" },
+      { src: "shots/six-w-writing-2.jpg", cap: "依學生勾選學習支持（句型、詞庫等）" },
+      { src: "shots/six-w-writing-3.jpg", cap: "可列印的學習單" }
+    ],
+    summary: "給作文題目或素材，依六何法七個層次（三何起步到完整寫作）一層一層引導，可選層、可依學生調整圈選、句型、詞庫、先說再寫等支持，產出互動網頁、學習單 PDF、Word 與教師版。",
+    cat: "國語文",
+    icon: "pen",
+    color: "#3a7fc1",
+    say: "題目「我的好朋友」，用六何法第一層做寫作學習單",
+    updated: "2026-11-16"
+  },
+  {
+    name: "成語動畫與作業單小幫手",
+    slug: "idiom-animation",
+    private: true,
+    ai: ["Claude"],
+    aiNote: "只支援 Claude Code（要在電腦上配音與打包）。",
+    shots: [
+      { src: "shots/idiom-animation-1.jpg", cap: "成語動畫：字義拆解，字幕跟著旁白走" },
+      { src: "shots/idiom-animation-2.jpg", cap: "作業單：成語小卡，可勾選推測意思的方法" }
+    ],
+    summary: "指定成語，或丟入課文讓 AI 先找出成語，做出向量動畫（字義拆解、小故事、口訣、生活例句、考考你）與注音作業單，曉臻語音直接內嵌，也能把多課打包成一個首頁。",
+    cat: "國語文",
+    icon: "play",
+    color: "#3a7fc1",
+    say: "幫我做成語動畫：奇思妙想、張牙舞爪、目瞪口呆",
+    updated: "2026-11-24"
+  },
+  {
+    name: "短語句型動畫與作業單小幫手",
+    slug: "phrase-pattern-animation",
+    private: true,
+    ai: ["Claude"],
+    aiNote: "只支援 Claude Code（要在電腦上配音與打包）。",
+    shots: [
+      { src: "shots/phrase-pattern-animation-1.jpg", cap: "短語動畫：課本短語逐詞跳出" },
+      { src: "shots/phrase-pattern-animation-2.jpg", cap: "作業單：句型小卡＋分層照樣寫" }
+    ],
+    summary: "給課文中的短語或照樣造句句型，做出公式拆解、課本短語逐詞跳出、換一個看看與考考你的動畫，加上分層照樣寫作業單（拼一拼、填一填、自己造）與教師版。插圖預設向量圖，也可換成老師自己生的圖。",
+    cat: "國語文",
+    icon: "play",
+    color: "#3a7fc1",
+    say: "翰林三上第七課，幫我做短語練習動畫和作業單",
+    updated: "2026-11-24"
+  },
+  {
+    name: "句型動畫與作業單小幫手",
+    slug: "sentence-pattern-animation",
+    private: true,
+    ai: ["Claude"],
+    aiNote: "只支援 Claude Code（要在電腦上配音與打包）。",
+    shots: [
+      { src: "shots/sentence-pattern-animation-1.jpg", cap: "師生對話動畫：老師舉例、學生造句" },
+      { src: "shots/sentence-pattern-animation-2.jpg", cap: "作業單：句型小幫手卡與看圖選一選" }
+    ],
+    summary: "輸入句型（如「雖然……但是……」），做出老師與學生對話的動畫：句型意義、舉例、學生造句、老師修正、生活應用、考考你，加上選一選、連連看、填一填的作業單，可把多課做成合輯。",
+    cat: "國語文",
+    icon: "play",
+    color: "#3a7fc1",
+    say: "幫我做「雖然……但是……」句型動畫和作業單",
+    updated: "2026-11-24"
+  },
+  {
+    name: "國語教材互動動畫網頁",
+    slug: "language-arts-animation",
+    private: true,
+    ai: ["Claude"],
+    aiNote: "只支援 Claude Code（要在電腦上配音與打包）。",
+    shots: [
+      { src: "shots/language-arts-animation-1.jpg", cap: "大頭角色動畫，字幕與旁白同步" },
+      { src: "shots/language-arts-animation-2.jpg", cap: "互動作業單：點空格出答案，題號可連回動畫" }
+    ],
+    summary: "成語、短語、句型、修辭、破音字都能做：AI 寫好腳本後直接配音、自動對齊字幕，產生大頭角色動畫網頁，加上點選就出答案的互動作業單，可列印學生版與教師版。",
+    cat: "國語文",
+    icon: "play",
+    color: "#3a7fc1",
+    say: "幫我做「譬喻法」的互動動畫和作業單",
     updated: "2026-11-26"
   }
 ];

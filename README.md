@@ -6,7 +6,9 @@
 
 打開 `skills.js`，複製一整段 `{ ... }` 貼在最後，改成新 skill 的資料（名稱、slug、GitHub 網址、說明、分類標籤、更新日期）。存檔後網頁會自動更新。
 
-只放公開的 skill。私人或僅本機使用的 skill 不要放進來。
+## 公開／私人分區
+
+網頁分成「公開 skill」與「私人 skill」兩區。私人 skill 在該筆加 `private: true`，只展示說明與截圖，不顯示安裝指令與 GitHub 下載連結（`url` 可省略）。帳號自用的 skill（如 token 提醒、logo）不要放進來。
 
 ## 功能說明圖片
 
