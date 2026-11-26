@@ -185,7 +185,7 @@
 </div>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-<script src="skills.js"></script>
+<script src="skills.js?v=20261126c"></script>
 <script>
 (function(){
   var skills = (window.SKILLS || []).filter(function(s){return !s.hidden});
@@ -249,7 +249,8 @@
       return '<article class="card" style="--c:'+esc(s.color||"#6ea548")+';--tab:'+(TAB[s.cat]||"var(--hl-yellow)")+'">'+
         '<div class="card-top"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(ICONS[s.icon]||ICONS.book)+'</svg></span>'+
         '<div><span class="label">'+esc(s.cat||"")+'</span>'+(priv?'<span class="lock">'+LOCK_SVG+'私人</span>':'')+'<h2>'+esc(s.name)+'</h2>'+
-        (s.author?'<div class="by">原作者：'+(s.authorUrl?'<a href="'+esc(s.authorUrl)+'" target="_blank" rel="noopener">'+esc(s.author)+'</a>':esc(s.author))+'</div>':'')+'</div></div>'+
+        (s.author?'<div class="by">原作者：'+(s.authorUrl?'<a href="'+esc(s.authorUrl)+'" target="_blank" rel="noopener">'+esc(s.author)+'</a>':esc(s.author))+
+          (s.source?'　・　<a href="'+esc(s.source)+'" target="_blank" rel="noopener">▶ '+esc(s.sourceName||"來源")+'</a>':'')+'</div>':'')+'</div></div>'+
         (s.shots&&s.shots.length?'<button class="shot" type="button" data-slug="'+esc(s.slug)+'" aria-label="看'+esc(s.name)+'的功能說明圖">'+
           '<img src="'+esc(s.shots[0].src)+'" alt="'+esc(s.shots[0].cap||"")+'" loading="lazy">'+
           '<span class="shot-cap"><span>'+esc(s.shots[0].cap||"")+'</span><span class="shot-n">看圖 '+s.shots.length+' 張</span></span></button>':'')+
