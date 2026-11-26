@@ -67,7 +67,8 @@
     position:relative;top:2px;transition:opacity .15s,padding .15s}
   .tab .n{font-family:var(--font);font-weight:500;font-size:13px;color:var(--muted);margin-left:4px}
   .tab:hover{opacity:1}
-  .tab[aria-pressed="true"]{opacity:1;background:var(--tab,var(--hl-yellow));padding-top:12px;z-index:1}
+  .tab[aria-selected="true"]{opacity:1;background:var(--tab,var(--hl-yellow));padding-top:12px;z-index:1}
+  .tab svg{width:16px;height:16px;vertical-align:-2px;margin-right:4px}
   .tab:focus-visible,.copy:focus-visible,.gh:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
   .box{border:2px solid var(--line);border-radius:18px;background:color-mix(in srgb,var(--surface) 55%,transparent);padding:24px}
   .board{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
@@ -122,13 +123,19 @@
   .lb-stage img{display:block;width:100%;height:auto}
   .lb-foot{width:100%;max-width:1100px;display:flex;justify-content:space-between;align-items:center;gap:10px;color:#fff;font-size:15px}
   .lb-cap{flex:1;text-align:center}
-  /* 公開／私人分區 */
-  .zone{display:flex;flex-direction:column;gap:14px}
-  .zone+.zone{margin-top:30px;padding-top:26px;border-top:2px dashed color-mix(in srgb,var(--line) 35%,transparent)}
-  .zone[hidden]+.zone{margin-top:0;padding-top:0;border-top:0}
-  .zone-h{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 12px;padding-left:4px}
-  .zone-h h2{font-family:var(--font-hand);font-size:clamp(24px,3.4vw,30px);margin:0;font-weight:700}
+  /* 分區分頁＋分類篩選 */
+  .zone-h{margin:0 0 12px;padding-left:2px}
   .zone-h p{margin:0;color:var(--muted);font-size:15px}
+  .cats{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+  .chip{font:inherit;font-size:14px;font-weight:700;color:var(--ink);cursor:pointer;min-height:36px;padding:4px 14px;border:2px solid var(--line);
+    border-radius:999px;background:var(--surface);opacity:.7}
+  .chip .n{font-weight:500;color:var(--muted);margin-left:4px;font-size:12px}
+  .chip:hover{opacity:1}
+  .chip[aria-pressed="true"]{opacity:1;background:var(--tab,var(--hl-yellow))}
+  .chip:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+  .by{font-size:13px;color:var(--muted);margin-top:2px}
+  .by a{color:var(--green)}
+  .links{display:flex;gap:14px;flex-wrap:wrap}
   .lock{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:700;padding:1px 10px;border-radius:4px;
     background:var(--paper);border:2px solid var(--line);transform:rotate(1.5deg);margin-left:6px;vertical-align:2px}
   .lock svg{width:14px;height:14px}
@@ -161,20 +168,15 @@
   </section>
 
   <section class="shelf">
-    <div id="tabs" class="tabs" role="group" aria-label="依分類篩選"></div>
-    <div class="box">
-    <div class="zone">
-      <div class="zone-h"><h2>公開 skill</h2><p>複製指令貼給 AI 就能用，也可到 GitHub 下載。</p></div>
+    <div id="tabs" class="tabs" role="tablist" aria-label="skill 分區"></div>
+    <div class="box" role="tabpanel" aria-labelledby="tabs">
+      <div class="zone-h"><p id="zoneNote"></p></div>
+      <div id="cats" class="cats" role="group" aria-label="依分類篩選"></div>
       <div id="board" class="board"></div>
-    </div>
-    <div id="zonePriv" class="zone">
-      <div class="zone-h"><h2>私人 skill</h2><p>目前只展示功能說明，不開放下載。</p></div>
-      <div id="boardPriv" class="board"></div>
-    </div>
     </div>
   </section>
 
-  <footer>由 <a href="https://github.com/sesns365" target="_blank" rel="noopener">特工365</a> 整理。公開 skill 的完整說明與下載都在各自的 GitHub 頁面。</footer>
+  <footer>由 <a href="https://github.com/sesns365" target="_blank" rel="noopener">特工365</a> 整理。「他人分享」分頁的 skill 版權屬原作者，下載與說明請到原作者的頁面。</footer>
 </main>
 <div id="lb" class="lb" role="dialog" aria-modal="true" aria-labelledby="lbTitle" hidden>
   <div class="lb-bar"><span id="lbTitle" class="lb-title"></span><button id="lbClose" class="lb-btn" type="button" aria-label="關閉">✕ 關閉</button></div>
@@ -209,13 +211,33 @@
   function cmd(s){return "安裝這個 skill："+s.url}
   function toast(m){var t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove("show")},1800)}
 
-  var cats=["全部","國語文","數學","評量與報讀","教材製作"];
-  skills.forEach(function(s){if(s.cat&&cats.indexOf(s.cat)<0)cats.push(s.cat)});
-  function n(c){return c==="全部"?skills.length:skills.filter(function(s){return s.cat===c}).length}
-  $("tabs").innerHTML=cats.filter(function(c){return n(c)>0}).map(function(c){
-    return '<button class="tab" type="button" style="--tab:'+(TAB[c]||"var(--hl-yellow)")+'" data-cat="'+esc(c)+'" aria-pressed="'+(c===cat)+'">'+esc(c)+'<span class="n">'+n(c)+'</span></button>'}).join("");
-  $("tabs").addEventListener("click",function(e){var b=e.target.closest(".tab");if(!b)return;cat=b.dataset.cat;
-    Array.prototype.forEach.call(this.children,function(x){x.setAttribute("aria-pressed",x.dataset.cat===cat)});render()});
+  // 分區分頁：public 公開、private 私人、shared 他人分享
+  var ZONES=[
+    {id:"public",name:"公開",bg:"var(--hl-yellow)",note:"特工365 製作、公開分享：按「複製」貼給 AI 就能用，也可到 GitHub 下載。"},
+    {id:"private",name:"私人",bg:"var(--hl-green)",note:"特工365 自用的 skill，這裡只展示功能說明，不開放下載。"},
+    {id:"shared",name:"他人分享",bg:"var(--hl-pink)",note:"其他老師分享的好用 skill，版權屬原作者，下載與說明請到原作者頁面。"}
+  ];
+  function zoneOf(s){return s.shared?"shared":s.private?"private":"public"}
+  var zone=(location.hash||"").slice(1);
+  if(!ZONES.some(function(z){return z.id===zone}))zone="public";
+  function inZone(){return skills.filter(function(s){return zoneOf(s)===zone})}
+  function drawTabs(){
+    $("tabs").innerHTML=ZONES.map(function(z){var k=skills.filter(function(s){return zoneOf(s)===z.id}).length;
+      return '<button class="tab" type="button" role="tab" style="--tab:'+z.bg+'" data-zone="'+z.id+'" aria-selected="'+(z.id===zone)+'">'+
+        (z.id==="private"?LOCK_SVG:'')+esc(z.name)+'<span class="n">'+k+'</span></button>'}).join("");
+    $("zoneNote").textContent=ZONES.filter(function(z){return z.id===zone})[0].note}
+  function drawCats(){
+    var list=inZone(),cs=["全部"];
+    ["國語文","數學","評量與報讀","教材製作"].concat(list.map(function(s){return s.cat})).forEach(function(c){
+      if(c&&cs.indexOf(c)<0&&list.some(function(s){return s.cat===c}))cs.push(c)});
+    if(cs.indexOf(cat)<0)cat="全部";
+    $("cats").hidden=cs.length<3;
+    $("cats").innerHTML=cs.map(function(c){var k=c==="全部"?list.length:list.filter(function(s){return s.cat===c}).length;
+      return '<button class="chip" type="button" style="--tab:'+(TAB[c]||"var(--hl-yellow)")+'" data-cat="'+esc(c)+'" aria-pressed="'+(c===cat)+'">'+esc(c)+'<span class="n">'+k+'</span></button>'}).join("")}
+  $("tabs").addEventListener("click",function(e){var b=e.target.closest(".tab");if(!b)return;zone=b.dataset.zone;cat="全部";
+    try{history.replaceState(null,"","#"+zone)}catch(err){}
+    drawTabs();drawCats();render()});
+  $("cats").addEventListener("click",function(e){var b=e.target.closest(".chip");if(!b)return;cat=b.dataset.cat;drawCats();render()});
 
   var AIS=["Claude","ChatGPT","Gemini"];
   function aiRow(s){if(!s.ai)return "";
@@ -223,10 +245,11 @@
       return '<span class="ai-c'+(ok?'':' no')+'"'+(ok?'':' title="目前不支援"')+'>'+(ok?'✓ ':'')+a+'</span>'}).join("")+
       (s.aiNote?'<span class="ai-n">'+esc(s.aiNote)+'</span>':'')+'</div>'}
   function card(s){
-      var priv=!!s.private;
+      var priv=!!s.private&&!s.shared;
       return '<article class="card" style="--c:'+esc(s.color||"#6ea548")+';--tab:'+(TAB[s.cat]||"var(--hl-yellow)")+'">'+
         '<div class="card-top"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(ICONS[s.icon]||ICONS.book)+'</svg></span>'+
-        '<div><span class="label">'+esc(s.cat||"")+'</span>'+(priv?'<span class="lock">'+LOCK_SVG+'私人</span>':'')+'<h2>'+esc(s.name)+'</h2></div></div>'+
+        '<div><span class="label">'+esc(s.cat||"")+'</span>'+(priv?'<span class="lock">'+LOCK_SVG+'私人</span>':'')+'<h2>'+esc(s.name)+'</h2>'+
+        (s.author?'<div class="by">原作者：'+(s.authorUrl?'<a href="'+esc(s.authorUrl)+'" target="_blank" rel="noopener">'+esc(s.author)+'</a>':esc(s.author))+'</div>':'')+'</div></div>'+
         (s.shots&&s.shots.length?'<button class="shot" type="button" data-slug="'+esc(s.slug)+'" aria-label="看'+esc(s.name)+'的功能說明圖">'+
           '<img src="'+esc(s.shots[0].src)+'" alt="'+esc(s.shots[0].cap||"")+'" loading="lazy">'+
           '<span class="shot-cap"><span>'+esc(s.shots[0].cap||"")+'</span><span class="shot-n">看圖 '+s.shots.length+' 張</span></span></button>':'')+
@@ -234,17 +257,14 @@
         aiRow(s)+
         (s.say?'<div class="say"><span class="say-who" aria-hidden="true">你</span><small>'+(priv?'使用時這樣說':'裝好後這樣說')+'</small>「'+esc(s.say)+'」</div>':'')+
         (priv?'<div class="private-note">'+LOCK_SVG+'<span>私人 skill，目前不開放下載。</span></div>':
+        s.installNote?'<div class="private-note"><span>'+esc(s.installNote)+'</span></div>':
         '<div class="install"><div class="cmd">'+esc(cmd(s))+'</div>'+
         '<button class="copy" type="button" data-slug="'+esc(s.slug)+'">'+COPY_SVG+'<span>複製</span></button></div>')+
-        '<div class="foot"><span>'+(s.updated?'更新 '+esc(s.updated):'')+'</span>'+(priv||!s.url?'':'<a class="gh" href="'+esc(s.url)+'" target="_blank" rel="noopener">GitHub 說明與下載 ↗</a>')+'</div>'+
+        '<div class="foot"><span>'+(s.updated?(s.shared?'收錄 ':'更新 ')+esc(s.updated):'')+'</span>'+(priv||!s.url?'':'<span class="links">'+(s.source?'<a class="gh" href="'+esc(s.source)+'" target="_blank" rel="noopener">'+esc(s.sourceName||"來源")+' ↗</a>':'')+
+          '<a class="gh" href="'+esc(s.url)+'" target="_blank" rel="noopener">'+(s.shared?'原作者 GitHub ↗':'GitHub 說明與下載 ↗')+'</a></span>')+'</div>'+
       '</article>'}
   function render(){
-    var list=skills.filter(function(s){return cat==="全部"||s.cat===cat});
-    var pub=list.filter(function(s){return !s.private}),pri=list.filter(function(s){return s.private});
-    $("board").innerHTML=pub.map(card).join("");
-    $("board").parentNode.hidden=!pub.length;
-    $("boardPriv").innerHTML=pri.map(card).join("");
-    $("zonePriv").hidden=!pri.length;
+    $("board").innerHTML=inZone().filter(function(s){return cat==="全部"||s.cat===cat}).map(card).join("");
   }
   function fallback(text){var ta=document.createElement("textarea");ta.value=text;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();
     var ok=false;try{ok=document.execCommand("copy")}catch(e){}document.body.removeChild(ta);return ok}
@@ -257,7 +277,7 @@
     var no=function(){if(fallback(text))ok();else toast("請選取指令後按 Ctrl+C 複製")};
     try{navigator.clipboard.writeText(text).then(ok,no)}catch(err){no()}
   }
-  $("board").addEventListener("click",onBoard);$("boardPriv").addEventListener("click",onBoard);
+  $("board").addEventListener("click",onBoard);
   var lb={s:null,i:0,from:null};
   function showLb(){var x=lb.s.shots[lb.i];$("lbImg").src=x.src;$("lbImg").alt=x.cap||"";$("lbStage").scrollTop=0;
     $("lbCap").textContent=(lb.s.shots.length>1?(lb.i+1)+" / "+lb.s.shots.length+"　":"")+(x.cap||"");
@@ -270,7 +290,7 @@
   $("lb").addEventListener("click",function(e){if(e.target===this)closeLb()});
   document.addEventListener("keydown",function(e){if($("lb").hidden)return;
     if(e.key==="Escape")closeLb();else if(e.key==="ArrowLeft")step(-1);else if(e.key==="ArrowRight")step(1)});
-  render();
+  drawTabs();drawCats();render();
 })();
 </script>
 </body>

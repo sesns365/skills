@@ -6,6 +6,7 @@
 // hidden: true ＝暫不開放：首頁不顯示，但 GitHub repo 仍是公開的。要重新開放就刪掉這行或改成 false。
 // private: true ＝私人 skill：放在「私人 skill」區，只展示說明與截圖，不顯示安裝指令與下載連結（url 可省略）。
 // 帳號自用的 skill（如 token 提醒、logo）不要放進來。
+// shared: true ＝他人分享：放在「他人分享」分頁；author＝原作者、authorUrl＝作者頁、source＝來源（影片等）、sourceName＝來源連結文字、url＝原作者 repo、updated＝收錄日期；installNote＝不是用「安裝這個 skill」裝的工具，改顯示這段安裝說明（不顯示複製鈕）。
 window.SKILLS = [
   {
     name: "語詞圖片生成",
@@ -243,6 +244,62 @@ window.SKILLS = [
     icon: "play",
     color: "#3a7fc1",
     say: "幫我做「譬喻法」的互動動畫和作業單",
+    updated: "2026-11-26"
+  },
+
+  // ===== 以下為他人分享（shared: true，版權屬原作者） =====
+  {
+    name: "Wordwall CLI",
+    slug: "wordwall-cli",
+    shared: true,
+    author: "mathruffian-dot",
+    authorUrl: "https://github.com/mathruffian-dot",
+    source: "https://www.youtube.com/watch?v=SDnWhL2RSag",
+    sourceName: "介紹影片",
+    ai: ["Claude"],
+    aiNote: "需在 Windows 電腦用 Claude Code（或 Codex）執行，並由老師本人登入自己的 Wordwall 帳號。",
+    url: "https://github.com/mathruffian-dot/wordwall-cli",
+    summary: "讓 AI 直接操作 Wordwall：用一句話描述想要的遊戲，就自動選範本、出題並建立活動（測驗、配對、分類、轉盤、句子填空、標示圖等），可做圖片題與 PDF 截圖題，還能指派成學生作業、匯出成績。",
+    cat: "評量與報讀",
+    icon: "touch",
+    color: "#d6457a",
+    say: "用 Wordwall 幫我做一個「分數比大小」的配對遊戲，並指派成學生作業",
+    updated: "2026-11-26"
+  },
+  {
+    name: "動畫原理解說（圖片加強版）",
+    slug: "claude-motion-explainer-images",
+    shared: true,
+    author: "mathruffian-dot",
+    authorUrl: "https://github.com/mathruffian-dot",
+    source: "https://www.youtube.com/watch?v=SDnWhL2RSag",
+    sourceName: "介紹影片",
+    ai: ["Claude"],
+    aiNote: "需在電腦用 Claude Code（或 Codex 等 agent）執行，要先裝 Node.js、ffmpeg、HyperFrames；旁白用 edge-tts，示意圖可選用 Codex CLI 生成。",
+    url: "https://github.com/mathruffian-dot/claude-motion-explainer-images",
+    summary: "用一句話做出一支原理解說動畫：自動研究、分鏡、配旁白與字幕，並加上兩種圖片：從 Wikimedia Commons 找有授權的照片當「證據卡」（自動標作者與授權），以及 AI 生成的示意背景圖。立體內容會自動用 three.js，唸錯字可單句替換不必重做。",
+    cat: "教材製作",
+    icon: "play",
+    color: "#e08a00",
+    say: "做一支 90 秒的動畫，解說「飛機為什麼飛得起來」",
+    updated: "2026-11-26"
+  },
+  {
+    name: "Antigravity 2.0 繁體中文套件",
+    slug: "antigravity2-zh-tw",
+    shared: true,
+    author: "workkkkkkez00m",
+    authorUrl: "https://github.com/workkkkkkez00m",
+    shots: [
+      { src: "https://raw.githubusercontent.com/workkkkkkez00m/antigravity2.0-zh-tw/HEAD/images/screenshot-main-ui-v2.29.0.jpg", cap: "中文化後的主介面（圖片取自原作者 repo）" },
+      { src: "https://raw.githubusercontent.com/workkkkkkez00m/antigravity2.0-zh-tw/HEAD/images/screenshot-settings-v2.29.0.jpg", cap: "中文化後的設定頁（圖片取自原作者 repo）" }
+    ],
+    url: "https://github.com/workkkkkkez00m/antigravity2.0-zh-tw",
+    summary: "這不是 skill，是把 Google 的 AI 寫程式工具 Antigravity 2.0 介面翻成繁體中文（台灣）的套件。支援 Windows 與 macOS，安裝前自動備份，可一鍵還原英文原版，並避開程式碼區、終端機等不該翻譯的地方。",
+    cat: "工具",
+    icon: "book",
+    color: "#5c8d3c",
+    installNote: "這是電腦工具，不是 skill：請先裝 Node.js LTS，再到原作者頁面下載「圖形化版」安裝器（不用打指令）或「傳統版」腳本。",
     updated: "2026-11-26"
   }
 ];
