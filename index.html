@@ -185,7 +185,7 @@
 </div>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-<script src="skills.js?v=20261126d"></script>
+<script src="skills.js?v=20261127a"></script>
 <script>
 (function(){
   var skills = (window.SKILLS || []).filter(function(s){return !s.hidden});
@@ -208,7 +208,7 @@
   var COPY_SVG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg>';
 
   function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
-  function cmd(s){return "安裝這個 skill："+s.url}
+  function cmd(s){return s.installCmd||("安裝這個 skill："+s.url)}
   function toast(m){var t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove("show")},1800)}
 
   // 分區分頁：public 公開、private 私人、shared 他人分享
@@ -256,9 +256,10 @@
           '<span class="shot-cap"><span>'+esc(s.shots[0].cap||"")+'</span><span class="shot-n">看圖 '+s.shots.length+' 張</span></span></button>':'')+
         '<p class="summary">'+esc(s.summary)+'</p>'+
         aiRow(s)+
+        (s.installCmd&&s.installNote?'<p class="ai-n" style="margin:0;font-size:13px">'+esc(s.installNote)+'</p>':'')+
         (s.say?'<div class="say"><span class="say-who" aria-hidden="true">你</span><small>'+(priv?'使用時這樣說':'裝好後這樣說')+'</small>「'+esc(s.say)+'」</div>':'')+
         (priv?'<div class="private-note">'+LOCK_SVG+'<span>私人 skill，目前不開放下載。</span></div>':
-        s.installNote?'<div class="private-note"><span>'+esc(s.installNote)+'</span></div>':
+        s.installNote&&!s.installCmd?'<div class="private-note"><span>'+esc(s.installNote)+'</span></div>':
         '<div class="install"><div class="cmd">'+esc(cmd(s))+'</div>'+
         '<button class="copy" type="button" data-slug="'+esc(s.slug)+'">'+COPY_SVG+'<span>複製</span></button></div>')+
         '<div class="foot"><span>'+(s.updated?(s.shared?'收錄 ':'更新 ')+esc(s.updated):'')+'</span>'+(priv||!s.url?'':'<span class="links">'+(s.source?'<a class="gh" href="'+esc(s.source)+'" target="_blank" rel="noopener">'+esc(s.sourceName||"來源")+' ↗</a>':'')+

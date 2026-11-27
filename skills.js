@@ -6,7 +6,7 @@
 // hidden: true ＝暫不開放：首頁不顯示，但 GitHub repo 仍是公開的。要重新開放就刪掉這行或改成 false。
 // private: true ＝私人 skill：放在「私人 skill」區，只展示說明與截圖，不顯示安裝指令與下載連結（url 可省略）。
 // 帳號自用的 skill（如 token 提醒、logo）不要放進來。
-// shared: true ＝他人分享：放在「他人分享」分頁；author＝原作者、authorUrl＝作者頁、source＝來源（影片等）、sourceName＝來源連結文字、url＝原作者 repo、updated＝收錄日期；installNote＝不是用「安裝這個 skill」裝的工具，改顯示這段安裝說明（不顯示複製鈕）。
+// shared: true ＝他人分享：放在「他人分享」分頁；author＝原作者、authorUrl＝作者頁、source＝來源（影片等）、sourceName＝來源連結文字、url＝原作者 repo、updated＝收錄日期；installNote＝安裝說明；installCmd＝自訂複製內容（取代「安裝這個 skill：網址」），沒有 installCmd 時只顯示 installNote、不顯示複製鈕。
 window.SKILLS = [
   {
     name: "語詞圖片生成",
@@ -295,7 +295,8 @@ window.SKILLS = [
     cat: "工具",
     icon: "book",
     color: "#5c8d3c",
-    installNote: "這是電腦工具，不是 skill：請先裝 Node.js LTS，再到原作者頁面下載「圖形化版」安裝器（不用打指令）或「傳統版」腳本。",
+    installNote: "這是電腦工具，不是 skill。電腦要先裝好 Antigravity 2.0 與 Node.js LTS，再把下面這段複製貼到 Antigravity 或 Claude Code 的對話框，AI 會幫你下載並安裝；安裝時會關閉 Antigravity，記得先存檔。",
+    installCmd: "幫我安裝 Antigravity 2.0 繁體中文套件：https://github.com/workkkkkkez00m/antigravity2.0-zh-tw 。請照 README 的「傳統版」步驟：git clone 到我的下載資料夾、在資料夾內執行 npm install，再依我的作業系統執行安裝（Windows：install-win.bat；macOS：install-macos.command），完成後提醒我重新啟動 Antigravity。",
     updated: "2026-11-26"
   }
 ];
