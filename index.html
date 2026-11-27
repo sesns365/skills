@@ -185,7 +185,7 @@
 </div>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-<script src="skills.js?v=20261127a"></script>
+<script src="skills.js?v=20261127b"></script>
 <script>
 (function(){
   var skills = (window.SKILLS || []).filter(function(s){return !s.hidden});
@@ -208,7 +208,7 @@
   var COPY_SVG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg>';
 
   function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
-  function cmd(s){return s.installCmd||("安裝這個 skill："+s.url)}
+  function cmd(s){return s.installCmd||("安裝這個 skill："+s.url+"（如果需要 Python、Node.js 等工具而我的電腦還沒裝，請一併幫我裝好）")}
   function toast(m){var t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove("show")},1800)}
 
   // 分區分頁：public 公開、private 私人、shared 他人分享

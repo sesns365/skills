@@ -44,6 +44,7 @@ window.SKILLS = [
     ai: ["Claude"],
     aiNote: "僅限 Claude Code（Windows 10／11），網頁版與手機 App 不能用。",
     url: "https://github.com/sesns365/exam-read-aloud",
+    installCmd: "安裝這個 skill：https://github.com/sesns365/exam-read-aloud 。裝好後請檢查我的電腦：有沒有 Python 3.9 以上（沒有就用 winget install Python.Python.3.12 幫我裝，裝好重開終端機確認），再執行 pip install pymupdf pillow；也檢查 Windows 有沒有「中文（繁體，台灣）」語言套件（圖片考卷 OCR 要用），沒有的話用白話教我怎麼加。全部確認好再告訴我可以開始。",
     summary: "丟入考卷（PDF、Word、圖片），自動做成版面完全不變、點題號或選項就能朗讀的報讀版網頁。支援直書國語與數學考卷，不會唸出隱藏答案。",
     cat: "評量與報讀",
     icon: "speaker",
@@ -257,6 +258,8 @@ window.SKILLS = [
     ai: ["Claude"],
     aiNote: "需在 Windows 電腦用 Claude Code（或 Codex）執行，並由老師本人登入自己的 Wordwall 帳號。",
     url: "https://github.com/mathruffian-dot/wordwall-cli",
+    installNote: "把下面這段貼到 Claude Code（Windows）的對話框，AI 會先檢查並安裝 Python、Git，再下載並設定好工具；登入 Wordwall 時要由你本人在跳出的 Chrome 輸入帳密。",
+    installCmd: "幫我安裝 Wordwall CLI：https://github.com/mathruffian-dot/wordwall-cli 。請依序完成，每一步確認成功再往下：①檢查電腦有沒有 Python 3 和 Git（python --version、git --version），沒有就用 winget 幫我裝（winget install Python.Python.3.12、winget install Git.Git），裝好後重開終端機再確認。②照 README 的「最快開始」：git clone 到我的文件資料夾，進資料夾後在 PowerShell 執行 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass，再執行 .\\setup.ps1 -WithPdf。③執行 python wordwall.py chrome-login，請我在跳出的 Chrome 自己登入 Wordwall（不要問我帳密），我說好了再執行 python wordwall.py grab-session。④最後執行 python wordwall.py doctor --login --pdf，全部通過就告訴我可以開始出題。出錯請用白話說明原因與下一步。",
     summary: "讓 AI 直接操作 Wordwall：用一句話描述想要的遊戲，就自動選範本、出題並建立活動（測驗、配對、分類、轉盤、句子填空、標示圖等），可做圖片題與 PDF 截圖題，還能指派成學生作業、匯出成績。",
     cat: "評量與報讀",
     icon: "touch",
@@ -273,6 +276,8 @@ window.SKILLS = [
     ai: ["Claude"],
     aiNote: "需在電腦用 Claude Code（或 Codex 等 agent）執行，要先裝 Node.js、ffmpeg、HyperFrames；旁白用 edge-tts，示意圖可選用 Codex CLI 生成。",
     url: "https://github.com/mathruffian-dot/claude-motion-explainer-images",
+    installNote: "把下面這段貼到 Claude Code 的對話框，AI 會先檢查並安裝 Node.js 22、ffmpeg、Python、Git 等需要的工具，再把 skill 裝好。",
+    installCmd: "幫我安裝 claude-motion-explainer-images 這組 skill：https://github.com/mathruffian-dot/claude-motion-explainer-images 。請依序完成，每一步確認成功再往下：①檢查並安裝需要的工具：Node.js 22 以上、ffmpeg、Python 3、Git（Windows 用 winget：winget install OpenJS.NodeJS.LTS、winget install Gyan.FFmpeg、winget install Python.Python.3.12、winget install Git.Git；macOS 用 Homebrew：brew install node ffmpeg python git），裝好後重開終端機確認版本。②執行 pip install pillow fonttools edge-tts。③執行 npm install -g hyperframes，再執行 hyperframes skills update 與 hyperframes skills update faceless-explainer。④git clone 這個 repo，把 skills 資料夾裡的所有 skill 複製到 ~/.claude/skills/。⑤執行 python skills/motion-explainer-images/scripts/hw_check.py，把硬體建議用白話告訴我。生圖用的 Codex CLI 是選用的，先不用裝。出錯請用白話說明原因與下一步。",
     summary: "用一句話做出一支原理解說動畫：自動研究、分鏡、配旁白與字幕，並加上兩種圖片：從 Wikimedia Commons 找有授權的照片當「證據卡」（自動標作者與授權），以及 AI 生成的示意背景圖。立體內容會自動用 three.js，唸錯字可單句替換不必重做。",
     cat: "教材製作",
     icon: "play",
@@ -295,8 +300,8 @@ window.SKILLS = [
     cat: "工具",
     icon: "book",
     color: "#5c8d3c",
-    installNote: "這是電腦工具，不是 skill。電腦要先裝好 Antigravity 2.0 與 Node.js LTS，再把下面這段複製貼到 Antigravity 或 Claude Code 的對話框，AI 會幫你下載並安裝；安裝時會關閉 Antigravity，記得先存檔。",
-    installCmd: "幫我安裝 Antigravity 2.0 繁體中文套件：https://github.com/workkkkkkez00m/antigravity2.0-zh-tw 。請照 README 的「傳統版」步驟：git clone 到我的下載資料夾、在資料夾內執行 npm install，再依我的作業系統執行安裝（Windows：install-win.bat；macOS：install-macos.command），完成後提醒我重新啟動 Antigravity。",
+    installNote: "這是電腦工具，不是 skill。電腦要先裝好 Antigravity 2.0；把下面這段貼到 Antigravity 或 Claude Code 的對話框，AI 會先檢查並安裝 Node.js、Git，再下載並安裝套件。安裝時會關閉 Antigravity，記得先存檔。",
+    installCmd: "幫我安裝 Antigravity 2.0 繁體中文套件：https://github.com/workkkkkkez00m/antigravity2.0-zh-tw 。請依序完成，每一步做完確認成功再往下：①先檢查電腦有沒有 Node.js LTS 和 Git（node -v、git --version），沒有就幫我裝（Windows 用 winget install OpenJS.NodeJS.LTS 與 winget install Git.Git；macOS 用 Homebrew：brew install node git，沒有 Homebrew 就先裝），裝好後重開終端機再確認版本。②照 README 的「傳統版」步驟：git clone 到我的下載資料夾，在資料夾內執行 npm install。③依我的作業系統執行安裝（Windows：install-win.bat；macOS：install-macos.command），遇到確認提示時先問我。④完成後提醒我重新啟動 Antigravity。過程中出錯請用白話告訴我原因與下一步。",
     updated: "2026-11-26"
   }
 ];
